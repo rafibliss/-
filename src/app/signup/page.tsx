@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
@@ -45,7 +46,7 @@ const SignUpPage = () => {
                     </div>
 
                 </fieldset>
-                <p className='text-gray-400 text-xs mt-8'>← হোম পেজে ফিরে যান</p>
+                <Link href={"/"}><p className='text-gray-400 text-xs my-8'>← হোম পেজে ফিরে যান</p></Link>
             </div>
         </div>
     );

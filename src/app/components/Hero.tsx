@@ -9,7 +9,7 @@ const Hero = () => {
     });
 
     return (
-        <section className="w-full bg-[#f4f7f4] py-8 px-4 sm:px-6">
+        <section className="w-full  py-8 px-4 sm:px-6">
             <div className="max-w-6xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-sm flex flex-col-reverse md:flex-row items-center justify-between gap-8">
 
 

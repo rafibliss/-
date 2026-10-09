@@ -12,7 +12,7 @@ const NavLInks = async () => {
                 {items.map((i) => (
                     <button
                         key={i.id}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl hover:bg-gray-100 transition-colors cursor-pointer whitespace-nowrap text-gray-700 font-medium text-sm"
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-[5px] hover:bg-gray-100 transition-colors cursor-pointer whitespace-nowrap text-gray-700 font-medium text-sm"
                     >
                         <span className="text-base">{i.icon}</span>
                         <span>{i.nameBn}</span>

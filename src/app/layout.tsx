@@ -29,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <NavLInks></NavLInks>
         <Marquee></Marquee>
 
-        {children}
+        <main className="flex-1 flex flex-col w-full">
+          {children}
+        </main>
         <Footer></Footer>
       </body>
     </html>
