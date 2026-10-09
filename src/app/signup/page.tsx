@@ -4,7 +4,7 @@ import { FcGoogle } from 'react-icons/fc';
 
 const SignUpPage = () => {
     return (
-        <div className='bg-[#f0f5f0] min-h-screen'>
+        <div className='bg-[#f0f5f0] min-h-150'>
             <div className='flex flex-col items-center justify-center mt-10 '>
                 <div className='flex flex-col justify-center items-center my-4 '>
                     <h1 className='text-2xl font-bold mb-1'>অ্যাকাউন্ট তৈরি করুন</h1>
