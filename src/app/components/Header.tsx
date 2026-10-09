@@ -1,6 +1,7 @@
 
 
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 
@@ -27,8 +28,12 @@ const Header = () => {
                             </div>
                         </div>
                         <div className='flex gap-2'>
-                            <button className="btn bg-base-100 outline-none">সাইন ইন</button>
-                            <button className="btn btn-success bg-[#05893E] text-white">সাইন আপ</button>
+                            <Link href={'/signin'}>
+                                <button className="btn bg-base-100 outline-none">সাইন ইন</button>
+                            </Link>
+                            <Link href={'/signup'}>
+                                <button className="btn btn-success bg-[#05893E] text-white">সাইন আপ</button>
+                            </Link>
                         </div>
 
 
