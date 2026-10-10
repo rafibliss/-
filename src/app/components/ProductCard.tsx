@@ -4,7 +4,7 @@ import React from 'react';
 interface Product {
     id: number;
     nameBn: string;
-    categoryIcon: string;
+    image: string;
     unit: string;
     today: number;
     change: {
@@ -23,7 +23,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
                 <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-xl shrink-0 border border-gray-100">
-                        {product.categoryIcon}
+                        {product.image}
                     </div>
                     <div>
                         <h3 className="text-sm font-bold text-gray-900">{product.nameBn}</h3>
