@@ -1,67 +1,131 @@
+'use client';
+
 import ProductCard from '@/app/components/ProductCard';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+interface Market {
+    market: string;
+    division: string;
+    min: number;
+    max: number;
+}
+
+interface Product {
+    id: number;
+    slug: string;
+    nameBn: string;
+    category: string;
+    categoryNameBn: string;
+    categoryIcon: string;
+    unit: string;
+    today: number;
+    yesterday: number;
+    lastWeek: number;
+    lastMonth: number;
+    image: string,
+    change: {
+        dir: 'up' | 'down' | 'flat';
+        pct: number;
+    };
+    markets: Market[];
+}
 
 interface PageProps {
     params: Promise<{ category: string }>;
 }
 
-const SingleCategory = async ({ params }: PageProps) => {
+export default function SingleCategory({ params }: PageProps) {
+    const [products, setProducts] = useState<Product[]>([]);
+    const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
+    const [sortOption, setSortOption] = useState<string>('default');
+    const [loading, setLoading] = useState<boolean>(true);
 
-    const { category } = await params;
+    useEffect(() => {
+        async function loadData() {
+            setLoading(true);
+            const { category } = await params;
 
-    const res = await fetch(
-        `https://openapi.programming-hero.com/api/bazardor/products?category=${category}`,
-        {
-            cache: 'force-cache',
+            try {
+                const res = await fetch(
+                    `https://openapi.programming-hero.com/api/bazardor/products?category=${category}`,
+                    { cache: 'force-cache' }
+                );
+                const data: Product[] = await res.json();
+                setProducts(data);
+                setSortedProducts(data);
+            } catch (err) {
+                console.error('Failed to fetch category products:', err);
+            } finally {
+                setLoading(false);
+            }
         }
-    );
 
-    const products = await res.json();
+        loadData();
+    }, [params]);
+
+    // Handle Dynamic Sorting
+    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const option = e.target.value;
+        setSortOption(option);
+
+        const sortedList = [...products];
+
+        if (option === 'lowToHigh') {
+            sortedList.sort((a, b) => a.today - b.today);
+        } else if (option === 'highToLow') {
+            sortedList.sort((a, b) => b.today - a.today);
+        }
+
+        setSortedProducts(sortedList);
+    };
+
+    if (loading) {
+        return <div className="text-center py-20 text-gray-500">লোড হচ্ছে...</div>;
+    }
+
     const categoryIcon = products[0]?.categoryIcon || '📦';
-    const categoryTitle = products[0]?.categoryNameBn || category;
+    const categoryTitle = products[0]?.categoryNameBn || 'ক্যাটাগরি';
 
     return (
-        <div className='bg-[#f0f5f0]'>
-            <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
-
-
-                <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-3xl shrink-0">
-                        {categoryIcon}
-                    </div>
-                    <div>
-                        <h1 className="text-xl font-bold text-gray-900">{categoryTitle}</h1>
-                        <p className="text-xs text-gray-500 mt-0.5">
-                            {products.length}টি পণ্যের আজকের দাম ও পরিবর্তন
-                        </p>
-                    </div>
+        <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+            {/* 1. Top Category Header Card */}
+            <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex items-center gap-4">
+                <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-3xl shrink-0">
+                    {categoryIcon}
                 </div>
-
-
-                <div className="bg-white border border-gray-100 rounded-2xl px-6 py-4 shadow-sm flex items-center justify-between">
-                    <div className="text-xs text-gray-500">
-                        মোট <span className="font-semibold text-gray-900">{products.length}</span>টি পণ্য দেখানো হচ্ছে
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500">সাজান</span>
-                        <select className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 text-xs text-gray-700 outline-none cursor-pointer">
-                            <option>ডিফল্ট</option>
-                            <option>দাম: কম থেকে বেশি</option>
-                            <option>দাম: বেশি থেকে কম</option>
-                        </select>
-                    </div>
+                <div>
+                    <h1 className="text-xl font-bold text-gray-900">{categoryTitle}</h1>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                        {products.length}টি পণ্যের আজকের দাম ও পরিবর্তন
+                    </p>
                 </div>
+            </div>
 
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {products.map((product: any) => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
+            {/* 2. Filter / Working Sorting Bar */}
+            <div className="bg-white border border-gray-100 rounded-2xl px-6 py-4 shadow-sm flex items-center justify-between">
+                <div className="text-xs text-gray-500">
+                    মোট <span className="font-semibold text-gray-900">{products.length}</span>টি পণ্য দেখানো হচ্ছে
                 </div>
+                <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-500">সাজান</span>
+                    <select
+                        value={sortOption}
+                        onChange={handleSortChange}
+                        className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 text-xs text-gray-700 outline-none cursor-pointer"
+                    >
+                        <option value="default">ডিফল্ট</option>
+                        <option value="lowToHigh">দাম: কম থেকে বেশি</option>
+                        <option value="highToLow">দাম: বেশি থেকে কম</option>
+                    </select>
+                </div>
+            </div>
 
+            {/* 3. Sorted Product Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {sortedProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                ))}
             </div>
         </div>
     );
-};
-
-export default SingleCategory;
+}
