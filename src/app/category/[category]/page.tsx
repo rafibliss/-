@@ -1,6 +1,7 @@
 'use client';
 
 import ProductCard from '@/app/components/ProductCard';
+
 import React, { useEffect, useState } from 'react';
 
 interface Market {
@@ -34,7 +35,7 @@ interface PageProps {
     params: Promise<{ category: string }>;
 }
 
-export default function SingleCategory({ params }: PageProps) {
+const SingleCategory = ({ params }: PageProps) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
     const [sortOption, setSortOption] = useState<string>('default');
@@ -80,52 +81,57 @@ export default function SingleCategory({ params }: PageProps) {
     };
 
     if (loading) {
-        return <div className="text-center py-20 text-gray-500">লোড হচ্ছে...</div>;
+        return <div className="flex items-center justify-center min-h-[70vh] w-full">
+            <span className="loading loading-bars loading-lg scale-150 text-primary"></span>
+        </div>
     }
 
     const categoryIcon = products[0]?.categoryIcon || '📦';
     const categoryTitle = products[0]?.categoryNameBn || 'ক্যাটাগরি';
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 ">
+        <div className='bg-[#f0f5f0]'>
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 ">
 
-            <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-3xl shrink-0">
-                    {categoryIcon}
+                <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-3xl shrink-0">
+                        {categoryIcon}
+                    </div>
+                    <div>
+                        <h1 className="text-xl font-bold text-gray-900">{categoryTitle}</h1>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                            {products.length}টি পণ্যের আজকের দাম ও পরিবর্তন
+                        </p>
+                    </div>
                 </div>
-                <div>
-                    <h1 className="text-xl font-bold text-gray-900">{categoryTitle}</h1>
-                    <p className="text-xs text-gray-500 mt-0.5">
-                        {products.length}টি পণ্যের আজকের দাম ও পরিবর্তন
-                    </p>
+
+
+                <div className="bg-white border border-gray-100 rounded-2xl px-6 py-4 shadow-sm flex items-center justify-between">
+                    <div className="text-xs text-gray-500">
+                        মোট <span className="font-semibold text-gray-900">{products.length}</span>টি পণ্য দেখানো হচ্ছে
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500">সাজান</span>
+                        <select
+                            value={sortOption}
+                            onChange={handleSortChange}
+                            className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 text-xs text-gray-700 outline-none cursor-pointer"
+                        >
+                            <option value="default">ডিফল্ট</option>
+                            <option value="lowToHigh">দাম: কম থেকে বেশি</option>
+                            <option value="highToLow">দাম: বেশি থেকে কম</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
 
-            <div className="bg-white border border-gray-100 rounded-2xl px-6 py-4 shadow-sm flex items-center justify-between">
-                <div className="text-xs text-gray-500">
-                    মোট <span className="font-semibold text-gray-900">{products.length}</span>টি পণ্য দেখানো হচ্ছে
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {sortedProducts.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
                 </div>
-                <div className="flex items-center gap-2">
-                    <span className="text-xs text-gray-500">সাজান</span>
-                    <select
-                        value={sortOption}
-                        onChange={handleSortChange}
-                        className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-1.5 text-xs text-gray-700 outline-none cursor-pointer"
-                    >
-                        <option value="default">ডিফল্ট</option>
-                        <option value="lowToHigh">দাম: কম থেকে বেশি</option>
-                        <option value="highToLow">দাম: বেশি থেকে কম</option>
-                    </select>
-                </div>
-            </div>
-
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {sortedProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
             </div>
         </div>
     );
 }
+export default SingleCategory
