@@ -63,7 +63,7 @@ export default function SingleCategory({ params }: PageProps) {
         loadData();
     }, [params]);
 
-    // Handle Dynamic Sorting
+
     const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const option = e.target.value;
         setSortOption(option);
@@ -87,8 +87,8 @@ export default function SingleCategory({ params }: PageProps) {
     const categoryTitle = products[0]?.categoryNameBn || 'ক্যাটাগরি';
 
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
-            {/* 1. Top Category Header Card */}
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 ">
+
             <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm flex items-center gap-4">
                 <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-3xl shrink-0">
                     {categoryIcon}
@@ -101,7 +101,7 @@ export default function SingleCategory({ params }: PageProps) {
                 </div>
             </div>
 
-            {/* 2. Filter / Working Sorting Bar */}
+
             <div className="bg-white border border-gray-100 rounded-2xl px-6 py-4 shadow-sm flex items-center justify-between">
                 <div className="text-xs text-gray-500">
                     মোট <span className="font-semibold text-gray-900">{products.length}</span>টি পণ্য দেখানো হচ্ছে
@@ -120,7 +120,7 @@ export default function SingleCategory({ params }: PageProps) {
                 </div>
             </div>
 
-            {/* 3. Sorted Product Grid */}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {sortedProducts.map((product) => (
                     <ProductCard key={product.id} product={product} />
