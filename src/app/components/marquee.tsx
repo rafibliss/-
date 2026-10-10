@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import MarqueeText from 'react-marquee-text';
 
@@ -20,6 +21,7 @@ const Marquee = async () => {
     const data: Product[] = await res.json();
     console.log(data)
     return (
+
         <div>
             <MarqueeText pauseOnHover direction='right' duration={11}>
                 <div className="flex items-center gap-4 px-2 border-b border-gray-200">
@@ -27,37 +29,40 @@ const Marquee = async () => {
                         const isUp = mrk.change?.dir === 'up';
 
                         return (
-                            <div
-                                key={mrk.id}
-                                className="flex items-center gap-2 px-3.5 py-1.5 bg-white  border-r border-gray-200  text-sm whitespace-nowrap"
-                            >
+                            <Link key={mrk.id} href={`/ProductDetail/${mrk.id}`}>
+                                <div
+                                    key={mrk.id}
+                                    className="flex items-center gap-2 px-3.5 py-1.5 bg-white  border-r border-gray-200  text-sm whitespace-nowrap"
+                                >
 
-                                <span className="text-base">{mrk.image}</span>
-
-
-                                <span className="font-semibold text-gray-800">{mrk.nameBn}</span>
+                                    <span className="text-base">{mrk.image}</span>
 
 
-                                <span className="text-gray-600 font-medium">
-                                    {mrk.today} টাকা/{mrk.unit}
-                                </span>
+                                    <span className="font-semibold text-gray-800">{mrk.nameBn}</span>
 
 
-                                {mrk.change && (
-                                    <span
-                                        className={`flex items-center gap-0.5 text-xs font-bold ${isUp ? 'text-red-600' : 'text-emerald-600'
-                                            }`}
-                                    >
-                                        <span>{isUp ? '▲' : '▼'}</span>
-                                        <span>{mrk.change.pct}%</span>
+                                    <span className="text-gray-600 font-medium">
+                                        {mrk.today} টাকা/{mrk.unit}
                                     </span>
-                                )}
-                            </div>
+
+
+                                    {mrk.change && (
+                                        <span
+                                            className={`flex items-center gap-0.5 text-xs font-bold ${isUp ? 'text-red-600' : 'text-emerald-600'
+                                                }`}
+                                        >
+                                            <span>{isUp ? '▲' : '▼'}</span>
+                                            <span>{mrk.change.pct}%</span>
+                                        </span>
+                                    )}
+                                </div>
+                            </Link>
                         );
                     })}
                 </div>
             </MarqueeText>
         </div>
+
     );
 };
 
