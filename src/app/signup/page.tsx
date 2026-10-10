@@ -42,7 +42,7 @@ const SignUpPage = () => {
                         </div>
                     </div>
                     <div className='flex justify-center mt-3'>
-                        <p>অ্যাকাউন্ট আছে? <span className='text-green-700 font-semibold cursor-pointer'>সাইন ইন করুন</span></p>
+                        <p>অ্যাকাউন্ট আছে? <Link href={"/signin"}><span className='text-green-700 font-semibold cursor-pointer'>সাইন ইন করুন</span></Link></p>
                     </div>
 
                 </fieldset>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NavLInks = async () => {
-    const res = await fetch('https://api.api-store.workers.dev/api/bazardor/categories', {
+    const res = await fetch('https://openapi.programming-hero.com/api/bazardor/categories', {
         cache: "force-cache"
     })
     const items = await res.json() as { id: number | string; icon: string; nameBn: string }[];
