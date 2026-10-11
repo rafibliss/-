@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface Market {
     market: string;
@@ -42,6 +43,9 @@ const ProductDetail = ({ product }: { product: Product }) => {
         (allMinPrices.reduce((a, b) => a + b, 0) + allMaxPrices.reduce((a, b) => a + b, 0)) /
         (allMinPrices.length * 2 || 1)
     );
+    if (!product) {
+        notFound()
+    }
 
     return (
         <div className='bg-[#f0f5f0]'>

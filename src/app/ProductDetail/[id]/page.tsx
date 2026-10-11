@@ -1,4 +1,5 @@
 import ProductDetail from '@/app/components/ProductDetail';
+// import { notFound } from 'next/navigation';
 import React from 'react';
 
 interface PageProps {
@@ -11,6 +12,7 @@ const ProductDetailPage = async ({ params }: PageProps) => {
         cache: "force-cache"
     })
     const product = await res.json();
+
     return (
         <div>
             <ProductDetail product={product}></ProductDetail>
