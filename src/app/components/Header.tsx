@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import UserInfo from './UserInfo';
 
 
 const date = new Date().toLocaleDateString("bn-BD", {
@@ -29,14 +30,7 @@ const Header = () => {
                                 </div>
                             </div>
                         </Link>
-                        <div className='flex gap-2'>
-                            <Link href={'/signin'}>
-                                <button className="btn bg-base-100 outline-none">সাইন ইন</button>
-                            </Link>
-                            <Link href={'/signup'}>
-                                <button className="btn btn-success bg-[#05893E] text-white">সাইন আপ</button>
-                            </Link>
-                        </div>
+                        <UserInfo />
 
 
                     </div>

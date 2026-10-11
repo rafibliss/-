@@ -33,9 +33,12 @@ const Hero = () => {
 
 
                     <div className="pt-2">
-                        <button className="bg-[#05893e] hover:bg-[#046e32]  text-white text-sm font-semibold px-6 py-2.5 rounded-xl shadow-xl hover:shadow transition-all cursor-pointer">
+                        <a
+                            href="#all-products"
+                            className="bg-[#05893E] hover:bg-[#046e32] text-white text-sm font-semibold px-6 py-2.5 rounded-xl shadow-xl hover:shadow transition-all cursor-pointer inline-block"
+                        >
                             সব পণ্য দেখুন
-                        </button>
+                        </a>
                     </div>
                 </div>
 

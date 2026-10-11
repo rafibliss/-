@@ -20,6 +20,7 @@ interface Product {
     yesterday: number;
     lastWeek: number;
     lastMonth: number;
+    image: string,
     change: {
         dir: 'up' | 'down' | 'flat';
         pct: number;
@@ -65,7 +66,7 @@ const AllProducts = async () => {
             </section>
 
 
-            <section className="space-y-4 pt-4">
+            <section id="all-products" className="space-y-4 pt-4">
                 <div>
                     <h2 className="text-gray-900 font-bold text-lg">সব পণ্য</h2>
                     <p className="text-xs text-gray-500">মোট {products.length}টি পণ্য দেখানো হচ্ছে</p>
