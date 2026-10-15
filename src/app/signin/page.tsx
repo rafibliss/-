@@ -52,7 +52,7 @@ const SIgnInPage = () => {
                     <p className='text-sm text-gray-500'>বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</p>
                 </div>
                 <form onSubmit={onSubmit}>
-                    <fieldset className="fieldset bg-[#fafcfa] border-base-300 rounded-box w-100 border p-4">
+                    <fieldset className="fieldset bg-[#fafcfa] border-base-300 rounded-box w-100 border p-4 shadow-sm">
 
 
 
